@@ -9,4 +9,10 @@ class User (){
         this.username = username
         this.password = password
     }
+
+    constructor(id : Long,username : String, password : String) : this() {
+        this.id = id
+        this.username = username
+        this.password = password
+    }
 }

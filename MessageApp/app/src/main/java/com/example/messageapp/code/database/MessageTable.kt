@@ -1,11 +1,16 @@
 package com.example.messageapp.code.database
 
+/**
+ * handles access to the message table
+ */
+
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.messageapp.code.database.model.Message
 import com.example.messageapp.code.database.model.User
@@ -21,6 +26,7 @@ class MessageTable (private var context: Context) : CRUD<Message> {
     private val MESSAGE_COLUMN_TIME = "time"
     private val MESSAGE_COLUMN_SEEN = "seen"
 
+    // create a message given a message
     @RequiresApi(Build.VERSION_CODES.O)
     override fun create(message: Message): Long {
         var id: Long = -1
@@ -48,9 +54,10 @@ class MessageTable (private var context: Context) : CRUD<Message> {
         return id
     }
 
+    // get a message given an id
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("Range")
-    override fun read(id: Int): Message {
+    override fun read(id: Long): Message {
         val database = DbHelper.getInstance(context)
         val selectQuery = "SELECT * FROM $MESSAGE_TABLE_NAME WHERE $MESSAGE_COLUMN_ID = \"$id\""
 
@@ -82,6 +89,8 @@ class MessageTable (private var context: Context) : CRUD<Message> {
         return Message()
     }
 
+    // get the current conversation given two user id's
+    // Returns an arraylist of messages
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("Range")
     fun readCurrentConvo(userId: Long, targetId: Long) : ArrayList<Message>{
@@ -109,7 +118,6 @@ class MessageTable (private var context: Context) : CRUD<Message> {
 
                     messages.add(message)
 
-
                 }while (cursor.moveToNext())
             }
         }
@@ -119,11 +127,11 @@ class MessageTable (private var context: Context) : CRUD<Message> {
         return messages
     }
 
-    override fun delete(id: Int): Long {
+    override fun delete(id: Long): Long {
         TODO("Not yet implemented")
     }
 
-    override fun update(id: Int, t: Message) {
+    override fun update(id: Long, t: Message) {
         TODO("Not yet implemented")
     }
 }
