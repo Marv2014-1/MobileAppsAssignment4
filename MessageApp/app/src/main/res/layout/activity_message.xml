@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".code.ui.Login">
+    tools:context=".UI.MessageListing">
 
     <ImageButton
-        android:id="@+id/loginRevert"
+        android:id="@+id/messagesBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -18,36 +18,38 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_revert" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/userList"
-        android:layout_width="409dp"
-        android:layout_height="662dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="132dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
+    <Button
+        android:id="@+id/sendMessage"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginRevert" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/messageText"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:text="This could be a fragment?"
+        android:layout_marginBottom="32dp"
+        android:ems="10"
+        android:hint="Type a message"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/sendMessage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messageList"
+        android:layout_width="409dp"
+        android:layout_height="505dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="32dp"
-        android:text="Users:"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/messageText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/messagesBack" />
 </androidx.constraintlayout.widget.ConstraintLayout>

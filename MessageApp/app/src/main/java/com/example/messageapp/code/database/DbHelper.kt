@@ -1,8 +1,13 @@
 package com.example.messageapp.code.database
 
+/**
+ * creates and provides access to the database
+ */
+
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 class DbHelper private constructor(private var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME,null, 1) {
 
@@ -33,7 +38,7 @@ class DbHelper private constructor(private var context: Context) : SQLiteOpenHel
     private val USER_TABLE_NAME = "user"
     private val USER_COLUMN_ID = "id"
     private val USER_COLUMN_USERNAME = "username"
-    private val USER_COLUMN_PASSWORD = "username"
+    private val USER_COLUMN_PASSWORD = "password"
 
     // Create the user table
     private val SQL_CREATE_USER_TABLE: String
@@ -55,8 +60,8 @@ class DbHelper private constructor(private var context: Context) : SQLiteOpenHel
                     "$MESSAGE_COLUMN_TEXT"	TEXT NOT NULL,
                     "$MESSAGE_COLUMN_TIME"	TEXT NOT NULL,
                     "$MESSAGE_COLUMN_SEEN" TEXT,
-                    FOREIGN KEY("$MESSAGE_COLUMN_RECEIVER") REFERENCES "user"("$USER_COLUMN_ID"),
-                    FOREIGN KEY("$MESSAGE_COLUMN_RECEIVER") REFERENCES "user"("$USER_COLUMN_ID"),
+                    FOREIGN KEY("$MESSAGE_COLUMN_SENDER") REFERENCES "$USER_TABLE_NAME"("$USER_COLUMN_ID"),
+                    FOREIGN KEY("$MESSAGE_COLUMN_RECEIVER") REFERENCES "$USER_TABLE_NAME"("$USER_COLUMN_ID"),
                     PRIMARY KEY("$MESSAGE_COLUMN_ID" AUTOINCREMENT)
                 )
             """
@@ -66,8 +71,7 @@ class DbHelper private constructor(private var context: Context) : SQLiteOpenHel
      * the database is saved within the emulator across different executions
      */
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(SQL_CREATE_USER_TABLE)
-        db?.execSQL(SQL_CREATE_MESSAGE_TABLE)
+        make()
     }
 
     // don't worry about this
@@ -79,9 +83,16 @@ class DbHelper private constructor(private var context: Context) : SQLiteOpenHel
         }
     }
 
+    // make the database
+    fun make(){
+        this.writableDatabase.execSQL(SQL_CREATE_USER_TABLE)
+        this.writableDatabase.execSQL(SQL_CREATE_MESSAGE_TABLE)
+    }
+
     //drops all the tables from the database
     fun deleteAll(){
         this.writableDatabase.execSQL("DROP TABLE IF EXISTS user")
         this.writableDatabase.execSQL("DROP TABLE IF EXISTS messages")
+        Log.e("Dropped", "Tables")
     }
 }
