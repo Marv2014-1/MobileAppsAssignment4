@@ -71,7 +71,8 @@ class DbHelper private constructor(private var context: Context) : SQLiteOpenHel
      * the database is saved within the emulator across different executions
      */
     override fun onCreate(db: SQLiteDatabase?) {
-        make()
+        db?.execSQL(SQL_CREATE_USER_TABLE)
+        db?.execSQL(SQL_CREATE_MESSAGE_TABLE)
     }
 
     // don't worry about this
@@ -83,16 +84,9 @@ class DbHelper private constructor(private var context: Context) : SQLiteOpenHel
         }
     }
 
-    // make the database
-    fun make(){
-        this.writableDatabase.execSQL(SQL_CREATE_USER_TABLE)
-        this.writableDatabase.execSQL(SQL_CREATE_MESSAGE_TABLE)
-    }
-
     //drops all the tables from the database
     fun deleteAll(){
-        this.writableDatabase.execSQL("DROP TABLE IF EXISTS user")
-        this.writableDatabase.execSQL("DROP TABLE IF EXISTS messages")
+        context.deleteDatabase(DATABASE_NAME)
         Log.e("Dropped", "Tables")
     }
 }

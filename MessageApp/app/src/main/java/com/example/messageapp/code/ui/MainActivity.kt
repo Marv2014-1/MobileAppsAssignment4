@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         val database = DbHelper.getInstance(this)
 //      This will delete the database for testing purposes each time this view is entered (disable after use)
 //        database.deleteAll()
-        database.make()
 
         // This will retrieve status updates about user actions
         val extras = intent.extras
