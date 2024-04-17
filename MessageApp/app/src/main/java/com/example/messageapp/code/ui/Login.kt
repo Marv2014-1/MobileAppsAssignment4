@@ -14,15 +14,15 @@ import com.example.messageapp.R
 import com.example.messageapp.code.database.model.User
 import com.example.messageapp.code.logic.Mediator
 import com.example.messageapp.code.ui.adapters.UserAdapter
-import com.example.messageapp.databinding.ActivityLoginBinding
+import com.example.messageapp.databinding.FragmentUserScreenBinding
 
 class Login : AppCompatActivity(), UserAdapter.OnButtonClickListener {
-    lateinit var binding: ActivityLoginBinding
+    lateinit var binding: FragmentUserScreenBinding
     private lateinit var newRecyclerView: RecyclerView
     private lateinit var newArrayList: ArrayList<User>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = FragmentUserScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // return to main (log out)
