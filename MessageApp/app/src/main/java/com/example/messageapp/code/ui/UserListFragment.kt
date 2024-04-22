@@ -10,8 +10,10 @@ import com.example.messageapp.databinding.FragmentUserScreenBinding
 class UserListFragment : Fragment() {
 
     private var _binding: FragmentUserScreenBinding? = null
-    private val binding get() = _binding!!
+    // Check to make sure binding is not null
+    private val binding get() = _binding ?: throw IllegalStateException("If Null, error with binding FragmentUserScreenBinding")
 
+    // inflate the layout for this UserListFragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,6 +28,6 @@ class UserListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        _binding = null // clearing binding to release resources
     }
 }
