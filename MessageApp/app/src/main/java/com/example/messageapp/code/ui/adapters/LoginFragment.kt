@@ -10,7 +10,7 @@ import com.example.messageapp.code.logic.Mediator
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginScreenBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding?: throw IllegalStateException("If Null, error with binding FragmentLoginScreenBinding")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,13 +27,12 @@ class LoginFragment : Fragment() {
         binding.login.setOnClickListener {
             val username: String = binding.username.text.toString()
             val password: String = binding.password.text.toString()
-            // Assuming Mediator can still be called in this context, or use an interface to communicate with MainActivity
+            // Assuming Mediator can still be called in this context
             Mediator.login(requireActivity(), username, password)
         }
 
         // Listen for new user button clicks
         binding.newUser.setOnClickListener {
-            // This might also need context or use an interface to communicate with MainActivity
             Mediator.newUser(requireActivity())
         }
 
